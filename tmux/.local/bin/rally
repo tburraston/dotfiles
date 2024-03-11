@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -eu
+TARGET=$(ls -d ~/clones/* ~/* | fzf --header-first --header="Launch Project" --prompt="> " --preview 'eza --tree --icons --color=always --level 3 --git-ignore {}')
+NAME=$(basename $TARGET)
+
+if [[ -f "$HOME/.config/smug/$NAME" ]]; then
+  smug start $NAME -a
+else
+  smug start default name=$NAME root=$TARGET -a
+fi
