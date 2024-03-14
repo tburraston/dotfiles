@@ -1,0 +1,12 @@
+[commit]
+	gpgsign = true
+[user]
+	signingkey = 7E32FDD4627D86F68B0B45684044A8BD4C891151
+	name = Tyler Burraston
+	email = tyler.burraston@pdq.com
+[tag]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[core]
+  excludesFile = ~/.config/git/ignore

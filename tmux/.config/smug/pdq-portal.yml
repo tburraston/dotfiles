@@ -1,21 +1,21 @@
 session: portal
 root: ~/clones/pdq-portal
 
-# before_start: 
-#   - docker-compose up -d
-#
-# stop:
-#   - docker-compose stop
-#
+before_start:
+  - docker-compose up -d
+
+stop:
+  - docker-compose stop
+
 windows:
   - name: " "
     commands:
       - nvim
   - name: " "
     commands: 
-      - nvim scratchpad.ex
+      - nvim scratchpad
     layout: main-horizontal
     panes:
       - type: horizontal
         commands:
-          - iex -S mix
+          - iex -S mix phx.server
