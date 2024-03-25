@@ -3,6 +3,7 @@ root: ~/clones/pdq-portal
 
 before_start:
   - docker-compose up -d
+  - docker-compose --project-directory ../devops/scripts/local-dev up -d
 
 stop:
   - docker-compose stop
@@ -19,3 +20,6 @@ windows:
       - type: horizontal
         commands:
           - iex -S mix phx.server
+  - name: " "
+    commands:
+      - nvim +DBUI
