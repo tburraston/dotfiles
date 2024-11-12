@@ -14,6 +14,8 @@ M.ui = {
 
 vim.api.nvim_set_hl(0, "Comment", {fg = "#77798c"})
 vim.api.nvim_set_hl(0, "@comment", {link = "Comment"})
+vim.api.nvim_set_hl(0, "Visual", {fg = "#e892e7", bg = "#77798c"})
+vim.api.nvim_set_hl(0, "@visual", {link = "Visual"})
 
 M.plugins = "custom.plugins"
 

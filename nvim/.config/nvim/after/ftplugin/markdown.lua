@@ -8,3 +8,4 @@ local run_code_block = function()
 end
 
 vim.keymap.set('n', '<C-c><C-c>', run_code_block, { buffer = true })
+vim.opt_local.conceallevel = 2

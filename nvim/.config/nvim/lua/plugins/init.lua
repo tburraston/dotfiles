@@ -19,6 +19,57 @@ local default_plugins = {
   },
 
   {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    opts = {
+      suggestion = {
+        enabled = true,
+        auto_trigger = true
+      },
+      panel = { enabled = true },
+      filetypes = {
+        markdown = true,
+        elixir = true,
+        help = true,
+      },
+    },
+  },
+
+  {
+    "debugloop/telescope-undo.nvim",
+    dependencies = { -- note how they're inverted to above example
+      {
+        "nvim-telescope/telescope.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+      },
+    },
+    keys = {
+      { -- lazy style key map
+        "<leader>u",
+        "<cmd>Telescope undo<cr>",
+        desc = "undo history",
+      },
+    },
+    opts = {
+      -- don't use `defaults = { }` here, do this in the main telescope spec
+      extensions = {
+        undo = {
+          -- telescope-undo.nvim config, see below
+        },
+        -- no other extensions here, they can have their own spec too
+      },
+    },
+    config = function(_, opts)
+      -- Calling telescope's setup from multiple specs does not hurt, it will happily merge the
+      -- configs for us. We won't use data, as everything is in it's own namespace (telescope
+      -- defaults, as well as each extension).
+      require("telescope").setup(opts)
+      require("telescope").load_extension("undo")
+    end,
+  },
+
+  {
     "NvChad/nvterm",
     init = function()
       require("core.utils").load_mappings "nvterm"
@@ -280,22 +331,22 @@ local default_plugins = {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local elixir = require("elixir")
-      local elixirls = require("elixir.elixirls")
+      -- local elixirls = require("elixir.elixirls")
 
       elixir.setup {
-        nextls = {enable = true},
-        credo = {},
+        nextls = {enable = false},
+        credo = {enable = false},
         elixirls = {
-          enable = true,
-          settings = elixirls.settings {
-            dialyzerEnabled = false,
-            enableTestLenses = false,
-          },
-          on_attach = function(client, bufnr)
-            vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-            vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-            vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-          end,
+          enable = false,
+          -- settings = elixirls.settings {
+          --   dialyzerEnabled = false,
+          --   enableTestLenses = false,
+          -- },
+          -- on_attach = function(client, bufnr)
+          --   vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+          --   vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+          --   vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+          -- end,
         }
       }
     end,
